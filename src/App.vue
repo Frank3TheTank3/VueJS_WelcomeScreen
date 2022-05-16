@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="center">
     <div id="maincontainer">
       <div class="welcome">
     <h1 class="welcometext">Welcome to</h1>
@@ -26,7 +26,7 @@
     </ul>
     </div>
 
-    <div class="footer">
+    <div class="footer center">
     <img alt="Vue logo" class="logo2 logopos" src="./assets/logo_soz.svg" />
     <img alt="Vue logo" class="logo2" src="./assets/logo_opport.png" />
     <img alt="Vue logo" class="logo2 logopos" src="./assets/logo_sag.png" />
@@ -60,7 +60,14 @@ export default {
   text-align: left;
   color: #2c3e50;
   margin-top: 60px;
+  
  
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
 }
 
 #maincontainer{
@@ -72,13 +79,15 @@ export default {
 }
 
 .welcometext{
- transform: translateY(45%);
+ transform: translateY(35%);
  right: 200px;
 }
 
 .footer{
-  display: inline;
+  margin: auto;
   align-content: center;
+  display: inline;
+  margin-left: 50px;
 
 }
 
@@ -89,7 +98,8 @@ export default {
 
 }
 .logo2{
-width:250px;
+ 
+width:200px;
 margin: 50px;
 text-align: center;
 vertical-align: middle;
@@ -114,7 +124,7 @@ vertical-align: middle;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 150px;
+  height: 120px;
   width: 70%;
   
 }
@@ -127,6 +137,7 @@ vertical-align: middle;
   margin: 50px;
   line-height: 150px;
   padding: 20px;
+  width: auto;
 }
 
 p {
