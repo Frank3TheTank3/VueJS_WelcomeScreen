@@ -10,16 +10,34 @@
       </div>
 
       <!--Date-->
-      <h1 class="date">{{date}}</h1>
+      <h1 class="date">{{ date }}</h1>
 
       <!--Main Activity List-->
       <ul class="list">
         <li class="center" v-for="post in allPosts" :key="post">
-          <p class="fat">{{post.postDate}}</p>
-          <p class="title">{{post.postEvent}}</p>
-          <p>{{post.postDes}}</p>
+          <p class="fat">{{ post.postDate }}</p>
+          <p class="title">{{ post.postEvent }}</p>
+          <p>{{ post.postDes }}</p>
         </li>
       </ul>
+      <div class="addNew">
+      <label for="dateInput">Date:</label>
+      <br>
+      <input id="dateInput" class="center" type="text">
+      <br>
+      <label for="dateInput">Event:</label>
+      <br>
+      <input id="dateInput" class="center" type="text">
+      <br>
+      <label for="dateInput">Description:</label>
+      <br>
+      <input id="dateInput" class="center" type="text">
+      <br>
+      <div class="button">
+      <button > Submit New Event </button>
+      </div>
+      </div>
+      
     </div>
 
     <!--Footer-->
@@ -27,55 +45,19 @@
       <img class="logo2 logopos" src="./assets/logo_soz.svg" />
       <img class="logo2" src="./assets/logo_opport.png" />
       <img class="logo2 logopos" src="./assets/logo_sag.png" />
+     
     </div>
   </div>
 </template>
 
-<!--Scripts
-
-export default {
-  name: "OpportunityWelcomeScreen",
-
-  data: {
-    allPosts: [
-      {
-        postDate: "14 00 Uhr 07.08.2021",
-        postEvent: "Basisbeschäftigung Besuch",
-        postDes: "Interessierte für den zweiten Kurs werden uns besuchen",
-      },
-      {
-        postDate: "15 30 Uhr 09.08.2021",
-        postEvent: "Firmenbesuch Microsoft",
-        postDes: "Roger Halbheer, Head of Security",
-      },
-      {
-        postDate: "8 30 Uhr 10.08.2021",
-        postEvent: "Tugce Nur returns to Office",
-        postDes: "We will continue working on this app together on Tuesday!",
-      }
-    ]
-  },
-  methods{
-
-    dataFuncs(): {
-    let currentDate = new Date();
-    let cDay = currentDate.getDate();
-    let cMonth = currentDate.getMonth() + 1;
-    let cYear = currentDate.getFullYear();
-    
-  }
-  }
-};
-
--->
 <!--Scripts-->
 <script>
 export default {
   name: "OpportunityWelcomeScreen",
-  
-  data() {
 
-    
+  allPosts: [],
+
+  data() {
     let currentDate = new Date();
     let cDay = currentDate.getDate();
     let cMonth = currentDate.getMonth() + 1;
@@ -83,24 +65,34 @@ export default {
     return {
       date: cDay + ".0" + cMonth + "." + cYear,
       allPosts: [
-      {
-        postDate: "14 00 Uhr 07.08.2021",
-        postEvent: "Basisbeschäftigung Besuch",
-        postDes: "Interessierte für den zweiten Kurs werden uns besuchen",
-      },
-      {
-        postDate: "15 30 Uhr 09.08.2021",
-        postEvent: "Firmenbesuch Microsoft",
-        postDes: "Roger Halbheer, Head of Security",
-      },
-      {
-        postDate: "8 30 Uhr 10.08.2021",
-        postEvent: "Tugce Nur returns to Office",
-        postDes: "We will continue working on this app together on Tuesday!",
-      }
-    ]
+        {
+          postDate: "14 00 Uhr 07.08.2021",
+          postEvent: "Basisbeschäftigung Besuch",
+          postDes: "Interessierte für den zweiten Kurs werden uns besuchen",
+        },
+        {
+          postDate: "15 30 Uhr 09.08.2021",
+          postEvent: "Firmenbesuch Microsoft",
+          postDes: "Roger Halbheer, Head of Security",
+        },
+        {
+          postDate: "8 30 Uhr 10.08.2021",
+          postEvent: "Tugce Nur returns to Office",
+          postDes: "We will continue working on this app together on Tuesday!",
+        },
+      ],
     };
   },
+
+  methods: {
+    /*
+    addNewEvent (eventDate, eventName, eventDes){
+
+      allPosts.push(eventDate, eventName, eventDes)
+    }
+*/
+
+  }
 };
 </script>
 
@@ -137,7 +129,31 @@ export default {
   margin-left: 50px;
 }
 
-/*Welcome Text & Date*/
+/*Welcome Text & Date & Button / Labels*/
+
+.addNew{
+  display: block;
+  padding: 25px;
+  align-content: center;
+  text-align: center;
+
+}
+
+.button{
+ 
+  display:flex;
+  padding: 25px;
+  justify-content: center;
+}
+button{
+   width: 150px;
+   height: 60px;
+   text-align: center;
+}
+label{
+  padding: 25px;
+  font-size: 30px;
+}
 
 .welcometext {
   transform: translateY(35%);
