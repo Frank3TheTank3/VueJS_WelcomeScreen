@@ -1,12 +1,13 @@
 <template>
   <!--APP-->
-  <div id="app" class="center">
+  <div id="app" class="">
     <!--Main Container-->
     <div id="maincontainer">
       <!--Welcome & Title-->
-      <div class="welcome">
+      <div class="welcome glow">
         <h1 class="welcometext">Welcome to</h1>
         <img class="logo" src="./assets/logo_op.png" />
+        <img class="logo_spark" src="./assets/stars.gif" />
       </div>
 
       <!--Date-->
@@ -130,26 +131,32 @@ export default {
   text-align: left;
   color: #2c3e50;
   margin-top: 60px;
+  display: inline-block;
+  font-family: "Inter";
 }
 
 .center {
-  font-family: "Inter";
+  
   margin: auto;
   width: 50%;
   padding: 10px;
 }
 
 #maincontainer {
+  display: block;
   background-color: rgb(214, 229, 234);
   height: 1920px;
-  width: 1080px;
+  max-width: 1080px;
+  width: 100%;
 }
 
 .footer {
   margin: auto;
   align-content: center;
-  display: inline;
-  margin-left: 50px;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  width: 1080px;
 }
 
 /*Welcome Text & Date & Button / Labels*/
@@ -201,14 +208,21 @@ label {
 /*Logos*/
 
 .logo2 {
-  max-width: 180px;
-  min-width: 50px;
+  width: 100%;
+  min-height: 100%;
+  min-width: 5%;
   margin: 50px;
   text-align: center;
   vertical-align: middle;
 }
 
+.logo_spark{
 
+position: absolute;
+left: 25%;
+top: 5%;
+rotate: 90;
+}
 
 .logopos {
   transform: translateY(20%);
@@ -290,5 +304,25 @@ p {
 .title {
   font-weight: bold;
   color: rgb(224, 138, 107);
+}
+
+
+ .glow {
+  
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #a64d0e, 0 0 40px #a64d0e, 0 0 50px #a64d0e,
+     0 0 60px #a64d0e, 0 0 70px #a64d0e;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #a64d0e, 0 0 40px #a64d0e, 0 0 50px #a64d0e, 0 0 60px #a64d0e,
+     0 0 70px #a64d0e, 0 0 80px #a64d0e;
+  }
 }
 </style>
