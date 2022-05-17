@@ -10,33 +10,37 @@
       </div>
 
       <!--Date-->
-      <h1 class="date">{{ date }}</h1>
+      <h1 class="date">{{ getDate() }}</h1>
+      <!-- <p>{{ entries }}</p>
+      <p>{{getApiInfo()}}</p> -->
 
       <!--Main Activity List-->
       <ul class="list">
-        <li class="center" v-for="post in allPosts" :key="post">
-          <p class="fat">{{ post.postDate }}</p>
-          <p class="title">{{ post.postEvent }}</p>
-          <p>{{ post.postDes }}</p>
+        <li class="center" v-for="entry in entries.slice(1)" :key="entry">
+          <p class="fat">{{ entry[0] }} {{ entry[1] }}</p>
+          <p class="title">{{ entry[2] }}</p>
+          <p>{{ entry[3] }}</p>
         </li>
       </ul>
+      <!--
       <div class="addNew">
-      <label for="dateInput">Date:</label>
-      <br>
-      <input id="dateInput" class="center" type="text">
-      <br>
-      <label for="dateInput">Event:</label>
-      <br>
-      <input id="dateInput" class="center" type="text">
-      <br>
-      <label for="dateInput">Description:</label>
-      <br>
-      <input id="dateInput" class="center" type="text">
-      <br>
-      <div class="button">
-      <button > Submit New Event </button>
+        <label for="dateInput">Date:</label>
+        <br />
+        <input id="dateInput" class="center" type="text" />
+        <br />
+        <label for="dateInput">Event:</label>
+        <br />
+        <input id="dateInput" class="center" type="text" />
+        <br />
+        <label for="dateInput">Description:</label>
+        <br />
+        <input id="dateInput" class="center" type="text" />
+        <br />
+        <div class="button">
+          <button>Submit New Event</button>
+        </div>
       </div>
-      </div>
+      -->
       
     </div>
 
@@ -45,25 +49,24 @@
       <img class="logo2 logopos" src="./assets/logo_soz.svg" />
       <img class="logo2" src="./assets/logo_opport.png" />
       <img class="logo2 logopos" src="./assets/logo_sag.png" />
-     
     </div>
   </div>
 </template>
 
-<!--Scripts-->
 <script>
+import axios from "axios"; // axios is a library for making HTTP requests to the backend
+
 export default {
-  name: "OpportunityWelcomeScreen",
-
-  allPosts: [],
-
+  name: "App",
   data() {
-    let currentDate = new Date();
-    let cDay = currentDate.getDate();
-    let cMonth = currentDate.getMonth() + 1;
-    let cYear = currentDate.getFullYear();
     return {
-      date: cDay + ".0" + cMonth + "." + cYear,
+      title: "Welcome to Opportunity",
+      sheet_id: "1a81aI0Y8ViZO0tI92h2YSMqVQJ8hmNNMyMylXgvwiU4",
+      api_token: "AIzaSyA-qeDXOhEeQDA0vQf7LgkF7DQtGnAtmAU",
+      entries: [],
+      currentDate: ""
+      
+      /*,
       allPosts: [
         {
           postDate: "14 00 Uhr 07.08.2021",
@@ -79,20 +82,40 @@ export default {
           postDate: "8 30 Uhr 10.08.2021",
           postEvent: "Tugce Nur returns to Office",
           postDes: "We will continue working on this app together on Tuesday!",
-        },
+        }
       ],
+      */
     };
   },
-
+  computed: {
+    // computed properties are like data properties, but with a method combined and it gets executed automatically, instead of calling a function explicitly
+    gsheet_url() {
+      return `https://sheets.googleapis.com/v4/spreadsheets/${this.sheet_id}/values:batchGet?ranges=A1%3AE100&valueRenderOption=FORMATTED_VALUE&key=${this.api_token}`;
+    },
+  },
   methods: {
-    /*
-    addNewEvent (eventDate, eventName, eventDes){
 
-      allPosts.push(eventDate, eventName, eventDes)
-    }
-*/
+     getDate() {
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth() + 1;
+      let zeroDigit = "";
+      if (currentMonth < 10) 
+      { 
+        zeroDigit = ".0";
+      }
+      const date = currentDate.getDate() + zeroDigit + currentMonth + "." + currentDate.getFullYear();
+      return date;
+    },
 
-  }
+    getData() {
+      axios.get(this.gsheet_url).then((response) => {
+        this.entries = response.data.valueRanges[0].values;
+      });
+    },
+  },
+   mounted() {
+    this.getData();
+  },
 };
 </script>
 
@@ -131,26 +154,24 @@ export default {
 
 /*Welcome Text & Date & Button / Labels*/
 
-.addNew{
+.addNew {
   display: block;
   padding: 25px;
   align-content: center;
   text-align: center;
-
 }
 
-.button{
- 
-  display:flex;
+.button {
+  display: flex;
   padding: 25px;
   justify-content: center;
 }
-button{
-   width: 150px;
-   height: 60px;
-   text-align: center;
+button {
+  width: 150px;
+  height: 60px;
+  text-align: center;
 }
-label{
+label {
   padding: 25px;
   font-size: 30px;
 }
@@ -180,11 +201,14 @@ label{
 /*Logos*/
 
 .logo2 {
-  width: 180px;
+  max-width: 180px;
+  min-width: 50px;
   margin: 50px;
   text-align: center;
   vertical-align: middle;
 }
+
+
 
 .logopos {
   transform: translateY(20%);
