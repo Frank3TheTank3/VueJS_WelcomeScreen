@@ -12,17 +12,20 @@
 
       <!--Date-->
       <h1 class="date">{{ getDate() }}</h1>
-      <!-- <p>{{ entries }}</p>
-      <p>{{getApiInfo()}}</p> -->
+      <!-- <p>{{  entries}}</p>
+      <p>{{  entries[0]}}</p> -->
+      <!--
+      
+       <p>{{  entries}}</p> -->
 
       <!--Main Activity List-->
-      <div v-if="entry">
+      <div v-if="entries">
         <ul class="list">
           <li
             class="center marked"
             v-for="entry in entries.slice(1)"
-            :key="entry">
-
+            :key="entry"
+          >
             <p class="fat shadow">
               {{ entry[0] }} {{ entry[1].replaceAll("/", ".") }}
             </p>
@@ -32,9 +35,12 @@
         </ul>
       </div>
 
-      <div class="center" v-else>
-        <h1 class="marked ">Our hamster powered servers stopped running. There's no data available at the moment.</h1>
-        <img class="hamster" src="./assets/hamster2.gif" />
+      <div v-else class="center">
+        <h1 class="slowglow">
+          Our hamster powered servers stopped running. There's no data available
+          at the moment.
+        </h1>
+        <img class="marked hamster" src="./assets/hamster4.gif" />
       </div>
     </div>
 
@@ -55,16 +61,21 @@ export default {
   data() {
     return {
       title: "Welcome to Opportunity",
+
       sheet_id: "1a81aI0Y8ViZO0tI92h2YSMqVQJ8hmNNMyMylXgvwiU4",
       api_token: "AIzaSyA-qeDXOhEeQDA0vQf7LgkF7DQtGnAtmAU",
-      entries: [],
+      /*
+     sheet_id: "1fNF4WnkISR-o-z3-hf30NGo_XvlAunUQ32Id_HFGd3g",
+     api_token: "AIzaSyCkPDqOhwEZ1J7JDcDCE9C4N9TCuaF6C1k",
+*/
+      entries: undefined,
       currentDate: "",
     };
   },
   computed: {
     // computed properties are like data properties, but with a method combined and it gets executed automatically, instead of calling a function explicitly
     gsheet_url() {
-      return `https://sheets.googleapis.com/v4/spreadsheets/${this.sheet_id}/values:batchGet?ranges=A1%3AE100&valueRenderOption=FORMATTED_VALUE&key=${this.api_token}`;
+      return `https://sheets.googleapis.com/v4/spreadsheets/${this.sheet_id}/values:batchGet?ranges=A2%3AE100&valueRenderOption=FORMATTED_VALUE&key=${this.api_token}`;
     },
   },
   methods: {
@@ -89,9 +100,20 @@ export default {
         this.entries = response.data.valueRanges[0].values;
       });
     },
+
+    refreshData() {
+      this.getData();
+      this.getDate();
+    },
   },
+
   mounted() {
     this.getData();
+    
+    setInterval(() => {
+      this.refreshData();
+    }, 1800000);
+    
   },
 };
 </script>
@@ -210,14 +232,11 @@ label {
   width: 70%;
 }
 
-.hamster{
+.hamster {
   position: relative;
-  left:15px;
-  width:500px;
-  height:400px;
-
-
-
+  left: 15px;
+  width: 500px;
+  height: 400px;
 }
 
 /*List tag customization*/
@@ -296,6 +315,13 @@ p {
 
 /* Effects for Text */
 
+.slowglow {
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: slowglow 5s ease-in-out infinite alternate;
+}
+
 .glow {
   text-align: center;
   -webkit-animation: glow 1s ease-in-out infinite alternate;
@@ -307,7 +333,19 @@ p {
   from {
     text-shadow: 0 0 10px #ed6808, 0 0 20px #ed6808, 0 0 30px #ed6808,
       0 0 40px #ed6808, 0 0 50px #ed6808, 0 0 60px #ed6808, 0 0 70px #ed6808;
-      color: #fff;
+    color: #fff;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff,
+      0 0 60px #fff, 0 0 70px #fff, 0 0 80px #fff;
+  }
+}
+
+@-webkit-keyframes slowglow {
+  from {
+    text-shadow: 0 0 10px #089c88, 0 0 20px #089c88, 0 0 30px #089c88,
+      0 0 40px #089c88, 0 0 50px #089c88, 0 0 60px #089c88, 0 0 70px #089c88;
+    color: #fff;
   }
   to {
     text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff,
