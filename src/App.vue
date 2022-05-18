@@ -16,15 +16,26 @@
       <p>{{getApiInfo()}}</p> -->
 
       <!--Main Activity List-->
-      <ul class="list">
-        <li class="center" v-for="entry in entries.slice(1)" :key="entry">
-          <p class="fat shadow">{{ entry[0] }} {{ entry[1].replaceAll('/','.') }}</p>
-          <p class="title">{{ entry[2] }}</p>
-          <p>{{ entry[3] }}</p>
-        </li>
-      </ul>
-      
-      
+      <div v-if="entry">
+        <ul class="list">
+          <li
+            class="center marked"
+            v-for="entry in entries.slice(1)"
+            :key="entry">
+
+            <p class="fat shadow">
+              {{ entry[0] }} {{ entry[1].replaceAll("/", ".") }}
+            </p>
+            <p class="title">{{ entry[2] }}</p>
+            <p>{{ entry[3] }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="center" v-else>
+        <h1 class="marked ">Our hamster powered servers stopped running. There's no data available at the moment.</h1>
+        <img class="hamster" src="./assets/hamster2.gif" />
+      </div>
     </div>
 
     <!--Footer-->
@@ -47,9 +58,7 @@ export default {
       sheet_id: "1a81aI0Y8ViZO0tI92h2YSMqVQJ8hmNNMyMylXgvwiU4",
       api_token: "AIzaSyA-qeDXOhEeQDA0vQf7LgkF7DQtGnAtmAU",
       entries: [],
-      currentDate: ""
-      
-      
+      currentDate: "",
     };
   },
   computed: {
@@ -59,16 +68,19 @@ export default {
     },
   },
   methods: {
-
-     getDate() {
+    getDate() {
       const currentDate = new Date();
       const currentMonth = currentDate.getMonth() + 1;
       let zeroDigit = "";
-      if (currentMonth < 10) 
-      { 
+      if (currentMonth < 10) {
         zeroDigit = ".0";
       }
-      const date = currentDate.getDate() + zeroDigit + currentMonth + "." + currentDate.getFullYear();
+      const date =
+        currentDate.getDate() +
+        zeroDigit +
+        currentMonth +
+        "." +
+        currentDate.getFullYear();
       return date;
     },
 
@@ -78,7 +90,7 @@ export default {
       });
     },
   },
-   mounted() {
+  mounted() {
     this.getData();
   },
 };
@@ -99,7 +111,6 @@ export default {
 }
 
 .center {
-  
   margin: auto;
   width: 50%;
   padding: 10px;
@@ -155,9 +166,8 @@ label {
   display: inline-flex;
   align-content: center;
   padding-left: 10%;
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   text-transform: uppercase;
-
 }
 
 .date {
@@ -182,12 +192,10 @@ label {
   vertical-align: middle;
 }
 
-.logo_spark{
-
-position: absolute;
-left: 25%;
-top: 5%;
-rotate: 90;
+.logo_spark {
+  position: absolute;
+  left: 45%;
+  top: -5%;
 }
 
 .logopos {
@@ -200,6 +208,16 @@ rotate: 90;
   margin-right: auto;
   height: 120px;
   width: 70%;
+}
+
+.hamster{
+  position: relative;
+  left:15px;
+  width:500px;
+  height:400px;
+
+
+
 }
 
 /*List tag customization*/
@@ -278,8 +296,7 @@ p {
 
 /* Effects for Text */
 
- .glow {
-  
+.glow {
   text-align: center;
   -webkit-animation: glow 1s ease-in-out infinite alternate;
   -moz-animation: glow 1s ease-in-out infinite alternate;
@@ -288,24 +305,22 @@ p {
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #10a60e, 0 0 40px #10a60e, 0 0 50px #10a60e,
-     0 0 60px #10a60e, 0 0 70px #10a60e;
+    text-shadow: 0 0 10px #ed6808, 0 0 20px #ed6808, 0 0 30px #ed6808,
+      0 0 40px #ed6808, 0 0 50px #ed6808, 0 0 60px #ed6808, 0 0 70px #ed6808;
+      color: #fff;
   }
   to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #a64d0e, 0 0 40px #a64d0e, 0 0 50px #a64d0e, 0 0 60px #a64d0e,
-     0 0 70px #a64d0e, 0 0 80px #a64d0e;
+    text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff,
+      0 0 60px #fff, 0 0 70px #fff, 0 0 80px #fff;
   }
 }
 
 .shadow {
-	text-shadow:
-		-1px -1px 0 #fff,
-		1px -1px 0 #fff,
-		-1px 1px 0 #fff,
-		1px 1px 0 #fff;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+    1px 1px 0 #fff;
 }
 
-.marked{
-  outline: 5px dotted green;
+.marked {
+  outline: 5px solid #ed6808;
 }
 </style>
