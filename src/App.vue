@@ -18,30 +18,12 @@
       <!--Main Activity List-->
       <ul class="list">
         <li class="center" v-for="entry in entries.slice(1)" :key="entry">
-          <p class="fat">{{ entry[0] }} {{ entry[1] }}</p>
+          <p class="fat shadow">{{ entry[0] }} {{ entry[1].replaceAll('/','.') }}</p>
           <p class="title">{{ entry[2] }}</p>
           <p>{{ entry[3] }}</p>
         </li>
       </ul>
-      <!--
-      <div class="addNew">
-        <label for="dateInput">Date:</label>
-        <br />
-        <input id="dateInput" class="center" type="text" />
-        <br />
-        <label for="dateInput">Event:</label>
-        <br />
-        <input id="dateInput" class="center" type="text" />
-        <br />
-        <label for="dateInput">Description:</label>
-        <br />
-        <input id="dateInput" class="center" type="text" />
-        <br />
-        <div class="button">
-          <button>Submit New Event</button>
-        </div>
-      </div>
-      -->
+      
       
     </div>
 
@@ -67,25 +49,7 @@ export default {
       entries: [],
       currentDate: ""
       
-      /*,
-      allPosts: [
-        {
-          postDate: "14 00 Uhr 07.08.2021",
-          postEvent: "Basisbeschäftigung Besuch",
-          postDes: "Interessierte für den zweiten Kurs werden uns besuchen",
-        },
-        {
-          postDate: "15 30 Uhr 09.08.2021",
-          postEvent: "Firmenbesuch Microsoft",
-          postDes: "Roger Halbheer, Head of Security",
-        },
-        {
-          postDate: "8 30 Uhr 10.08.2021",
-          postEvent: "Tugce Nur returns to Office",
-          postDes: "We will continue working on this app together on Tuesday!",
-        }
-      ],
-      */
+      
     };
   },
   computed: {
@@ -130,7 +94,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
   color: #2c3e50;
-  margin-top: 60px;
   display: inline-block;
   font-family: "Inter";
 }
@@ -192,6 +155,9 @@ label {
   display: inline-flex;
   align-content: center;
   padding-left: 10%;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-transform: uppercase;
+
 }
 
 .date {
@@ -225,7 +191,7 @@ rotate: 90;
 }
 
 .logopos {
-  transform: translateY(20%);
+  transform: translateY(22%);
 }
 
 .logo {
@@ -236,7 +202,7 @@ rotate: 90;
   width: 70%;
 }
 
-/*List tag / P tag & title color and font styles*/
+/*List tag customization*/
 
 .list li {
   list-style-type: none;
@@ -261,6 +227,8 @@ rotate: 90;
   width: auto;
   animation: fadeInDown 0.5s ease-in forwards;
 }
+
+/* Keyframe Animation */
 
 @keyframes fadeInDown {
   from {
@@ -291,6 +259,8 @@ rotate: 90;
   }
 }
 
+/* P tag & Title color and font styles */
+
 p {
   margin: 0;
   line-height: 50px;
@@ -306,6 +276,7 @@ p {
   color: rgb(224, 138, 107);
 }
 
+/* Effects for Text */
 
  .glow {
   
@@ -317,12 +288,24 @@ p {
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #a64d0e, 0 0 40px #a64d0e, 0 0 50px #a64d0e,
-     0 0 60px #a64d0e, 0 0 70px #a64d0e;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #10a60e, 0 0 40px #10a60e, 0 0 50px #10a60e,
+     0 0 60px #10a60e, 0 0 70px #10a60e;
   }
   to {
     text-shadow: 0 0 20px #fff, 0 0 30px #a64d0e, 0 0 40px #a64d0e, 0 0 50px #a64d0e, 0 0 60px #a64d0e,
      0 0 70px #a64d0e, 0 0 80px #a64d0e;
   }
+}
+
+.shadow {
+	text-shadow:
+		-1px -1px 0 #fff,
+		1px -1px 0 #fff,
+		-1px 1px 0 #fff,
+		1px 1px 0 #fff;
+}
+
+.marked{
+  outline: 5px dotted green;
 }
 </style>
